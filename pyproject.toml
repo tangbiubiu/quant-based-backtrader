@@ -7,6 +7,13 @@ requires-python = "==3.11.12"
 dependencies = [
     "backtracker>=0.0.7",
     "pandas>=2.0.3",
-    "matplotlib==3.2.2",
+    "matplotlib>=3.5.0",
     "akshare>=1.9.73",
+    "backtrader>=1.9.78.123",
+    "sqlalchemy>=2.0.45",
+    "python-dotenv>=1.2.1",
+    "tushare>=1.4.24",
+    "sqlmodel>=0.0.31",
+    "scipy>=1.16.3",
+    "xtquant>=1.0.0",
 ]

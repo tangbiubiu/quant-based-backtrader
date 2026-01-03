@@ -2,39 +2,59 @@
 #    uv export --no-dev --format requirements.txt --no-hashes
 aiohappyeyeballs==2.6.1
     # via aiohttp
-aiohttp==3.12.15
+aiohttp==3.13.2
     # via akshare
 aiosignal==1.4.0
     # via aiohttp
-akracer==0.0.13 ; sys_platform == 'linux'
+akracer==0.0.14 ; sys_platform == 'linux'
     # via akshare
-akshare==1.17.44
+akshare==1.18.6
     # via backtrader-trading
-attrs==25.3.0
+annotated-types==0.7.0
+    # via pydantic
+attrs==25.4.0
     # via aiohttp
 backtracker==0.0.7
     # via backtrader-trading
-beautifulsoup4==4.13.5
-    # via akshare
-certifi==2025.8.3
-    # via requests
-charset-normalizer==3.4.3
+backtrader==1.9.78.123
+    # via backtrader-trading
+beautifulsoup4==4.14.3
+    # via
+    #   akshare
+    #   bs4
+bs4==0.0.2
+    # via tushare
+certifi==2025.11.12
+    # via
+    #   curl-cffi
+    #   requests
+cffi==2.0.0
+    # via curl-cffi
+charset-normalizer==3.4.4
     # via requests
 colorama==0.4.6 ; sys_platform == 'win32'
     # via tqdm
+contourpy==1.3.3
+    # via matplotlib
+curl-cffi==0.14.0
+    # via akshare
 cycler==0.12.1
     # via matplotlib
 decorator==5.2.1
     # via akshare
 et-xmlfile==2.0.0
     # via openpyxl
-frozenlist==1.7.0
+fonttools==4.61.1
+    # via matplotlib
+frozenlist==1.8.0
     # via
     #   aiohttp
     #   aiosignal
+greenlet==3.3.0 ; platform_machine == 'AMD64' or platform_machine == 'WIN32' or platform_machine == 'aarch64' or platform_machine == 'amd64' or platform_machine == 'ppc64le' or platform_machine == 'win32' or platform_machine == 'x86_64'
+    # via sqlalchemy
 html5lib==1.1
     # via akshare
-idna==3.10
+idna==3.11
     # via
     #   requests
     #   yarl
@@ -42,67 +62,114 @@ jsonpath==0.82.2
     # via akshare
 kiwisolver==1.4.9
     # via matplotlib
-lxml==6.0.1
-    # via akshare
-matplotlib==3.2.2
+lxml==6.0.2
+    # via
+    #   akshare
+    #   tushare
+matplotlib==3.10.8
     # via backtrader-trading
-mini-racer==0.12.4 ; sys_platform != 'linux'
+mini-racer==0.13.2 ; sys_platform != 'linux'
     # via akshare
-multidict==6.6.4
+multidict==6.7.0
     # via
     #   aiohttp
     #   yarl
 nest-asyncio==1.6.0
     # via akshare
-numpy==2.3.2
+numpy==2.4.0
     # via
+    #   contourpy
     #   matplotlib
     #   pandas
+    #   scipy
+    #   xtquant
 openpyxl==3.1.5
     # via akshare
-pandas==2.3.2
+packaging==25.0
+    # via matplotlib
+pandas==2.3.3
     # via
     #   akshare
     #   backtrader-trading
-propcache==0.3.2
+    #   tushare
+    #   xtquant
+pillow==12.1.0
+    # via matplotlib
+propcache==0.4.1
     # via
     #   aiohttp
     #   yarl
 py-mini-racer==0.6.0 ; sys_platform == 'linux'
     # via akshare
-pyparsing==3.2.3
+pycparser==2.23 ; implementation_name != 'PyPy'
+    # via cffi
+pydantic==2.12.5
+    # via sqlmodel
+pydantic-core==2.41.5
+    # via pydantic
+pyparsing==3.3.1
     # via matplotlib
 python-dateutil==2.9.0.post0
     # via
     #   matplotlib
     #   pandas
+python-dotenv==1.2.1
+    # via backtrader-trading
 pytz==2025.2
     # via pandas
 requests==2.32.5
-    # via akshare
+    # via
+    #   akshare
+    #   tushare
+    #   xtquant
+scipy==1.16.3
+    # via backtrader-trading
+simplejson==3.20.2
+    # via tushare
 six==1.17.0
     # via
     #   html5lib
     #   python-dateutil
-soupsieve==2.8
+soupsieve==2.8.1
     # via beautifulsoup4
+sqlalchemy==2.0.45
+    # via
+    #   backtrader-trading
+    #   sqlmodel
+sqlmodel==0.0.31
+    # via backtrader-trading
 tabulate==0.9.0
     # via akshare
 tqdm==4.67.1
-    # via akshare
+    # via
+    #   akshare
+    #   tushare
+    #   xtquant
+tushare==1.4.24
+    # via backtrader-trading
 typing-extensions==4.15.0
     # via
     #   aiosignal
     #   beautifulsoup4
-tzdata==2025.2
+    #   pydantic
+    #   pydantic-core
+    #   sqlalchemy
+    #   typing-inspection
+typing-inspection==0.4.2
+    # via pydantic
+tzdata==2025.3
     # via pandas
-urllib3==2.5.0
+urllib3==2.6.2
     # via
     #   akshare
     #   requests
 webencodings==0.5.1
     # via html5lib
+websocket-client==1.9.0
+    # via tushare
 xlrd==2.0.2
     # via akshare
-yarl==1.20.1
+xtquant==250516.1.1
+    # via backtrader-trading
+yarl==1.22.0
     # via aiohttp

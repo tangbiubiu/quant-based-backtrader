@@ -16,7 +16,7 @@ from data.db_based_tushare import TushareDownloader
 
 
 def main(update_db: bool = True):
-    with open("config/config.toml", "rb") as f:
+    with open("config/config.toml", "rb") as f: 
         config = tomllib.load(f)
 
     config_info = f"""
@@ -33,11 +33,12 @@ def main(update_db: bool = True):
     pp(config_info)
 
     platform = sys.platform.lower()
-    if platform.startswith("win") or platform.startswith("linux"):
-        plt.rcParams["font.sans-serif"] = ["SimHei"]
+    if platform.startswith("win"):
+        plt.rcParams["font.sans-serif"] = ["SimHei", "Microsoft YaHei", "Arial Unicode MS"]
+    elif platform.startswith("linux"):
+        plt.rcParams["font.sans-serif"] = ["SimHei", "WenQuanYi Zen Hei", "Noto Sans CJK SC"]
     else:
-        plt.rcParams['font.family'] = 'sans-serif'
-    plt.rcParams['font.sans-serif'] = ['Hiragino Sans GB', 'Hiragino Sans']  
+        plt.rcParams["font.sans-serif"] = ["Hiragino Sans GB", "Arial Unicode MS", "SimHei"]
     plt.rcParams["axes.unicode_minus"] = False
 
     end_month_last_day = calendar.monthrange(config["date"]["end_year"], config["date"]["end_month"])[1]
