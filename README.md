@@ -46,6 +46,9 @@ python main.py run
 python main.py update
 ```
 
+# 贡献代码
+请参照`CONTRIBUTING.md`
+
 # 进度
 - [x] 架构构思和搭建
 - [x] 回测流程跑通
