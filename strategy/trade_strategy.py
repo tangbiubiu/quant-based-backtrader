@@ -3,7 +3,11 @@ from abc import ABCMeta, abstractmethod
 import backtrader as bt
 
 
-class TradeStrategy(bt.Strategy, metaclass=ABCMeta):
+class ABCMetaStrategy(ABCMeta):
+    pass
+
+
+class TradeStrategy(bt.Strategy, metaclass=ABCMetaStrategy):
     strategy_name: str | None = None  # 用于标识策略名称(可选)
 
     def __init__(self, **params) -> None:

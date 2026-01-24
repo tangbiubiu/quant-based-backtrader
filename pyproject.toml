@@ -5,9 +5,15 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = "==3.11.12"
 dependencies = [
-    "backtracker>=0.0.7",
-    "pandas>=2.0.3",
-    "akshare>=1.9.73",
+    "backtrader>=1.9.78.122",
+    "pandas>=2.3.2",
+    "akshare>=1.17.44",
+    "tushare>=1.2.89",
+    "sqlmodel>=0.0.14",
+    "python-dotenv>=1.0.0",
+    "tqdm>=4.67.1",
+    "matplotlib>=3.8.0",
+    "scipy>=1.17.0",
 ]
 
 [dependency-groups]
@@ -19,7 +25,7 @@ dev = [
 
 [tool.ruff]
 line-length = 88
-target-version = "py313"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP"]

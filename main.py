@@ -1,18 +1,18 @@
-import sys
-from datetime import datetime
 import calendar
+import sys
 import tomllib
-import pandas as pd
-import matplotlib.pyplot as plt
-from backtrader import bt
-import akshare as ak
+from datetime import datetime
 from pprint import pprint as pp
 
-from strategy.config_loader import StrategyConfig
+import matplotlib.pyplot as plt
+from backtrader import bt
+
 from commission.commission import MyStockCommissionScheme
+from data.db_based_tushare import TushareDownloader
+
 # from data.akshare_data import get_stock_data
 from data.db_reader import StockDBReader
-from data.db_based_tushare import TushareDownloader
+from strategy.config_loader import StrategyConfig
 
 
 def main(update_db: bool = True):
@@ -36,21 +36,25 @@ def main(update_db: bool = True):
     if platform.startswith("win") or platform.startswith("linux"):
         plt.rcParams["font.sans-serif"] = ["SimHei"]
     else:
-        plt.rcParams['font.family'] = 'sans-serif'
-    plt.rcParams['font.sans-serif'] = ['Hiragino Sans GB', 'Hiragino Sans']  
+        plt.rcParams["font.family"] = "sans-serif"
+    plt.rcParams["font.sans-serif"] = ["Hiragino Sans GB", "Hiragino Sans"]
     plt.rcParams["axes.unicode_minus"] = False
 
-    end_month_last_day = calendar.monthrange(config["date"]["end_year"], config["date"]["end_month"])[1]
+    end_month_last_day = calendar.monthrange(
+        config["date"]["end_year"], config["date"]["end_month"]
+    )[1]
     start_date, end_date = (
         datetime(config["date"]["start_year"], config["date"]["start_month"], 1),
-        datetime(config["date"]["end_year"], config["date"]["end_month"], end_month_last_day),
+        datetime(
+            config["date"]["end_year"], config["date"]["end_month"], end_month_last_day
+        ),
     )
 
     # raw_data = get_stock_data(
     #     symbol=config["stock"]["symbol"][0],
     #     adjust=config["stock"]["adjust"]
     # )
-    
+
     # 更新数据库
     if update_db:
         data_downloader = TushareDownloader()
@@ -59,9 +63,9 @@ def main(update_db: bool = True):
     db_reader = StockDBReader()
     raw_data = db_reader.get_daily_price(
         ts_code=config["stock"]["symbol"][0],
-        start_date=start_date.strftime('%Y%m%d'),
-        end_date=end_date.strftime('%Y%m%d'),
-        adj_type=config["stock"]["adjust"]
+        start_date=start_date.strftime("%Y%m%d"),
+        end_date=end_date.strftime("%Y%m%d"),
+        adj_type=config["stock"]["adjust"],
     )
 
     strategy_cfg = StrategyConfig()
@@ -72,11 +76,7 @@ def main(update_db: bool = True):
     comminfo = MyStockCommissionScheme(**config["broker"])
 
     cerebro = bt.Cerebro()
-    data = bt.feeds.PandasData(
-        dataname=raw_data,
-        fromdate=start_date,
-        todate=end_date
-    )
+    data = bt.feeds.PandasData(dataname=raw_data, fromdate=start_date, todate=end_date)
     cerebro.adddata(data)
     cerebro.addstrategy(strategy_class, **strategy_params)
     cerebro.broker.setcash(config["cash"])
@@ -90,34 +90,55 @@ def main(update_db: bool = True):
     result_info = f"""
 回测结果:
        初始资金: {config["cash"]}
-       回测期间: {start_date.strftime('%Y%m%d')} ~ {end_date.strftime('%Y%m%d')}
+       回测期间: {start_date.strftime("%Y%m%d")} ~ {end_date.strftime("%Y%m%d")}
        总资金: {round(port_value, 2)}
        净收益: {round(pnl, 2)}
     """
     pp(result_info)
 
-    cerebro.plot(style='candlestick')
+    cerebro.plot(style="candlestick")
+
 
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description='quantitative trading with Backtrader')
-    parser.add_argument('task', metavar='t', type=str, default='run',
-                   help='''run: update database & run backtest; 
-                   update: ONLY update database; 
-                   init_db: initialize database, two date parameters required''')
-    parser.add_argument('start_date', metavar='s', type=str, nargs='?', default=None,
-                   help='start date for backtest in YYYYMMDD format')
-    parser.add_argument('end_date', metavar='e', type=str, nargs='?', default=None,
-                   help='end date for backtest in YYYYMMDD format')
+
+    parser = argparse.ArgumentParser(description="quantitative trading with Backtrader")
+    parser.add_argument(
+        "task",
+        metavar="t",
+        type=str,
+        default="run",
+        help="""run: update database & run backtest;
+                   update: ONLY update database;
+                   init_db: initialize database, two date parameters required""",
+    )
+    parser.add_argument(
+        "start_date",
+        metavar="s",
+        type=str,
+        nargs="?",
+        default=None,
+        help="start date for backtest in YYYYMMDD format",
+    )
+    parser.add_argument(
+        "end_date",
+        metavar="e",
+        type=str,
+        nargs="?",
+        default=None,
+        help="end date for backtest in YYYYMMDD format",
+    )
     args = parser.parse_args()
 
-    if args.task == 'run':
+    if args.task == "run":
         main(update_db=True)
-    elif args.task == 'update':
+    elif args.task == "update":
         data_downloader = TushareDownloader()
         data_downloader.update()
-    elif args.task == 'init_db':
+    elif args.task == "init_db":
         data_downloader = TushareDownloader()
-        data_downloader.frist_download(start_date=args.start_date, end_date=args.end_date)
+        data_downloader.frist_download(
+            start_date=args.start_date, end_date=args.end_date
+        )
     else:
         print("无效的任务参数，请使用 'run', 'update' 或 'init_db'。")

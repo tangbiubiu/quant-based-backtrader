@@ -1,7 +1,7 @@
 [MACD]
 module = "strategy.macd_strategy"
 class = "MACDStrategy"
-[MACD.params] 
+[MACD.params]
 ma_period = 15  # SMA计算周期
 macd_fast = 30  # MACD指标的EMA计算周期，下同
 macd_slow = 50
